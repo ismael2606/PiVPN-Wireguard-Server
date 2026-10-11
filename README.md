@@ -1,9 +1,9 @@
-## 🎯 Project TL;DR
+## Project TL;DR
 This project establishes a self-hosted, full-tunnel VPN gateway deployed on a Raspberry Pi backbone utilizing the modern **WireGuard** protocol layer and **DuckDNS** as the automated Dynamic DNS (DDNS) provider. Deploying this architecture allows remote client devices (such as laptops and smartphones) to securely intercept, encrypt, and route traffic straight back to home network resources from anywhere in the world over untrusted public WAN perimeters.
 
 ---
 
-## 🛠️ Tech Stack & Specifications
+## Tech Stack & Specifications
 
 | Component | Technology / Protocol | Operational Detail |
 | :--- | :--- | :--- |
@@ -15,7 +15,7 @@ This project establishes a self-hosted, full-tunnel VPN gateway deployed on a Ra
 
 ---
 
-## 🚀 Step-by-Step Deployment Phases
+## Step-by-Step Deployment Phases
 
 ### Phase 1: Inbound Network Perimeter (Edge Router)
 Established a permanent internal local DHCP IP reservation for the Raspberry Pi host hardware and explicitly provisioned a network-layer **Port Forwarding rule** for incoming traffic mapped to **UDP port 51820** on the ISP residential gateway.
@@ -31,7 +31,7 @@ Generated custom asymmetric keypairs for isolated client endpoints. Successfully
 
 ---
 
-## 📋 Infrastructure Management Cheat Sheet
+## Infrastructure Management Cheat Sheet
 
 The following native CLI shortcuts are used to manage client peers, audit data throughput, and analyze infrastructure health directly from the host system terminal:
 
