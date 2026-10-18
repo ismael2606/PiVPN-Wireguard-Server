@@ -1,5 +1,5 @@
 ## Suammry
-This project establishes a self-hosted, full-tunnel VPN gateway deployed on a Raspberry Pi backbone utilizing the modern **WireGuard** protocol layer and **DuckDNS** as the automated Dynamic DNS (DDNS) provider. Deploying this architecture allows remote client devices (such as laptops and smartphones) to securely intercept, encrypt, and route traffic straight back to home network resources from anywhere in the world over untrusted public WAN perimeters.
+This project establishes a self-hosted, full-tunnel VPN gateway on a Raspberry Pi, using the **WireGuard** protocol and **DuckDNS** as the automated Dynamic DNS (DDNS) provider. Deploying this architecture allows remote client devices (such as laptops and smartphones) to securely intercept, encrypt, and route traffic straight back to home network resources from anywhere in the world over untrusted public networks.
 
 ---
 
@@ -8,8 +8,8 @@ This project establishes a self-hosted, full-tunnel VPN gateway deployed on a Ra
 | Component | Technology / Protocol | Operational Detail |
 | :--- | :--- | :--- |
 | **Operating System** | Raspberry Pi OS | Debian 12 Bookworm (64-bit ARM Architecture) |
-| **VPN Core Layer** | WireGuard | Modern cryptographic primitives (ChaCha20-Poly1305) |
-| **Network Protocol** | `UDP` | Stateful transport layer listening on Port **`51820`** |
+| **VPN Core Layer** | WireGuard | Lightweight and high-performance alternative to OpenVPN |
+| **Network Protocol** | `UDP` | Port foward Wireguard packets back to your VPN server |
 | **DNS Configuration** | DuckDNS + Cloudflare | Automated DDNS tracking domain with secure upstream resolvers |
 | **Automation Engine** | Linux `cron` Daemon | Scheduled Bash shell script execution loops |
 
@@ -17,25 +17,38 @@ This project establishes a self-hosted, full-tunnel VPN gateway deployed on a Ra
 
 ## Steps
 
-### Phase 1: Inbound Network Perimeter (Edge Router)
-Established a permanent internal local DHCP IP reservation for the Raspberry Pi host hardware and explicitly provisioned a network-layer **Port Forwarding rule** for incoming traffic mapped to **UDP port 51820** on the ISP residential gateway.
+### Phase 1: Set up Port Forwarding for your VPN server:
+ 1 - Log in to your router's admin portal (usually can be done by navigating to `https://<ip-of-your-router>`
+ 2 - Go to your settings to specify and add your port forwarding rule by adding an available port# between `1 and 65535`, UDP as the protocol, and a rule name, if applicable.
 
-### Phase 2: Automation & Persistence Pipelines
-Configured an automated background script loop backed by the Linux system scheduler (`cron`) to systematically monitor, capture, and update rotating residential public WAN IP shifts against a custom tracking domain hosted by DuckDNS.
+### Phase 2: Setup Dynamic DNS with DuckDNS
+DDNS allows clients to connect to the VPN server without knowing its IP address by matching the domain name you set up from https://www.duckdns.org with your VPN server's IP address. This will prevent us from having to enter the server's IP address whenever it changes, which our ISP often does.
 
-### Phase 3: WireGuard Protocol Orchestration
-Executed the structural deployment compilation wrapper to initialize the virtual network bridge interface (`wg0`). Simultaneously enforced security hardening by initializing the `Unattended-Upgrades` engine to fetch and apply vital operating system security patches automatically on a daily interval.
+1 - Create a new script to run DuckDNS: `nano ~/duckdns.sh`.
+2 - Inside the script, paste the following (replace <your_token> and <your_subdomain> with your actual token and subdomain):
+ `echo url="https://www.duckdns.org/update?domains=<your_subdomain>&token=<your_token>&ip=" | curl -k -o ~/duckdns.log -K -`
+3 - Set up a cron job to run this script every 5 minutes:
+  `crontab -e`
+4 - Add the following line to the file:
+  `*/5 * * * * ~/duckdns.sh >/dev/null 2>&1`
+  * NOTE: This job will run the duckdns.sh script every 5 minutes to match our domain name with the current server's IP address.
 
-### Phase 4: Peer Cryptographic Enrollment
-Generated custom asymmetric keypairs for isolated client endpoints. Successfully extracted laptop configuration scripts over encrypted channels using Secure Copy Protocol (`scp`) and generated interactive console-based ASCII QR codes for streamlined mobile provisioning.
+
+### Phase 3: Install WireGuard Server
+Setup: https://docs.pi-hole.net/guides/vpn/wireguard/server/#installing-the-wireguard-server
+
+
+
+### Phase 4: Add Client configuration
+Setup: https://docs.pi-hole.net/guides/vpn/wireguard/client/#add-client-to-server-configuration
 
 ---
 
-## Infrastructure Management Cheat Sheet
+## CLI Cheat Sheet
 
 The following native CLI shortcuts are used to manage client peers, audit data throughput, and analyze infrastructure health directly from the host system terminal:
 
-* `pivpn add` — Generates a clean asymmetric cryptographic profile template for a new device.
+* `pivpn add` — Creates a fresh template to add a new device.
 * `pivpn -c` — Pulls down real-time metrics tracking active peer connections, handshake timelines, and bandwidth data transfer.
 * `pivpn -d` — Compiles and executes a system-wide diagnostic framework to analyze config health and flag errors.
 * `pivpn -qr` — Projects a secure console-based ASCII QR code matrix matching an existing peer profile to instantly provision iOS/Android endpoints through the native WireGuard app interface.
