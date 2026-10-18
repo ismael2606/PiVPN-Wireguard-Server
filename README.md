@@ -55,7 +55,7 @@ Using `pivpn -c` and/or opening the Wireguard app, we can demonstrate a successf
 
 The following native CLI shortcuts are used to manage client peers, audit data throughput, and analyze infrastructure health directly from the host system terminal:
 
-* `pivpn add` — Creates a fresh template to add a new device.
-* `pivpn -c` — Pulls down real-time metrics tracking active peer connections, handshake timelines, and bandwidth data transfer.
-* `pivpn -d` — Compiles and executes a system-wide diagnostic framework to analyze config health and flag errors.
-* `pivpn -qr` — Projects a secure console-based ASCII QR code matrix matching an existing peer profile to instantly provision iOS/Android endpoints through the native WireGuard app interface.
+* `pivpn -c` — shows current peers, handshake times, and transfer stats (wg show)
+* `pivpn -d` — runs PiVPN’s debug script to check config and flag common issues
+* `pivpn -qr` — prints a QR code of a client config for the mobile app
+* `pivpn add` — generates a new client config
