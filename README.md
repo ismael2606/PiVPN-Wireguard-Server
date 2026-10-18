@@ -47,7 +47,8 @@ Setup: https://docs.pi-hole.net/guides/vpn/wireguard/client/#add-client-to-serve
 ---
 
 ## Example
-Using `pivpn -c` and/or opening the Wireguard app we can see demonstrate a sucessful connection, in this case from a laptop to the vpn server
+Using `pivpn -c` and/or opening the Wireguard app, we can demonstrate a successful connection, in this case from a laptop to the vpn server.
+![](pivpn-ok.png)
 
 
 ## CLI Cheat Sheet
