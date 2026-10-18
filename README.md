@@ -7,11 +7,11 @@ This project establishes a self-hosted, full-tunnel VPN gateway on a Raspberry P
 
 | Component | Technology / Protocol | Operational Detail |
 | :--- | :--- | :--- |
-| **Operating System** | Raspberry Pi OS | Debian 12 Bookworm (64-bit ARM Architecture) |
-| **VPN Core Layer** | WireGuard | Lightweight and high-performance alternative to OpenVPN |
+| **Operating System** | Debian Linux on Raspberry Pi OS |
+| **VPN Provider** | WireGuard | Lightweight and high-performance alternative to OpenVPN |
 | **Network Protocol** | `UDP` | Port foward Wireguard packets back to your VPN server |
-| **DNS Configuration** | DuckDNS + Cloudflare | Automated DDNS tracking domain with secure upstream resolvers |
-| **Automation Engine** | Linux `cron` Daemon | Scheduled Bash shell script execution loops |
+| **DNS Configuration** | DuckDNS + Cloudflare |
+| **Automation Engine** | Linux `cron` Daemon |
 
 ---
 
