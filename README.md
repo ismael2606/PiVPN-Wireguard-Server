@@ -10,7 +10,7 @@ This project establishes a self-hosted, full-tunnel VPN gateway on a Raspberry P
 | **Operating System** | Debian Linux on Raspberry Pi OS |
 | **VPN Provider** | WireGuard | 
 | **Network Protocol** | `UDP` | 
-| **DNS Configuration** | DuckDNS + Cloudflare |
+| **DNS Configuration** | DuckDNS |
 | **Automation Engine** | Linux `cron` Daemon |
 
 ---
