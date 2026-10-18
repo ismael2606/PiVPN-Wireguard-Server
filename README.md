@@ -1,4 +1,4 @@
-## Suammry
+## Summary
 This project establishes a self-hosted, full-tunnel VPN gateway on a Raspberry Pi, using the **WireGuard** protocol and **DuckDNS** as the automated Dynamic DNS (DDNS) provider. Deploying this architecture allows remote client devices (such as laptops and smartphones) to securely intercept, encrypt, and route traffic straight back to home network resources from anywhere in the world over untrusted public networks.
 
 ---
