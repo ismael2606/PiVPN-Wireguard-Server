@@ -25,10 +25,13 @@ This project establishes a self-hosted, full-tunnel VPN gateway on a Raspberry P
 DDNS allows clients to connect to the VPN server without knowing its IP address by matching the domain name you set up from https://www.duckdns.org with your VPN server's IP address. This will prevent us from having to enter the server's IP address whenever it changes, which our ISP often does.
 
 1 - Create a new script to run DuckDNS: `nano ~/duckdns.sh`.
+
 2 - Inside the script, paste the following (replace <your_token> and <your_subdomain> with your actual token and subdomain):
- `echo url="https://www.duckdns.org/update?domains=<your_subdomain>&token=<your_token>&ip=" | curl -k -o ~/duckdns.log -K -`
+ `echo url="https://www.duckdns.org/update?domains=<your_subdomain>&token=<your_token>&ip=" | curl -k -o ~/duckdns.log -K -`.
+ 
 3 - Set up a cron job to run this script every 5 minutes:
   `crontab -e`
+  
 4 - Add the following line to the file:
   `*/5 * * * * ~/duckdns.sh >/dev/null 2>&1`
   * NOTE: This job will run the duckdns.sh script every 5 minutes to match our domain name with the current server's IP address.
@@ -36,7 +39,6 @@ DDNS allows clients to connect to the VPN server without knowing its IP address 
 
 ### Phase 3: Install WireGuard Server
 Setup: https://docs.pi-hole.net/guides/vpn/wireguard/server/#installing-the-wireguard-server
-
 
 
 ### Phase 4: Add Client configuration
